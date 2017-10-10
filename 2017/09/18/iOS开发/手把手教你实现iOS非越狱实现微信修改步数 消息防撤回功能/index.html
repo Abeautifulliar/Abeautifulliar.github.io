@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,iOS逆向," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="工具准备class-dump (获取逆向APP头文件工具)下载地址: http://stevenygard.com/projects/class-dump 下载dmg文件, 将dmg文件中的class-dump复制到/usr/bin目录，并在Terminal中执行sudo chmod 777 /usr/bin/class-dump 命令赋予其执行权限 iOSOpenDev (构造越狱环境)安装具体">
+<meta name="keywords" content="iOS,iOS逆向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手把手教你实现iOS非越狱实现微信修改步数 消息防撤回功能">
+<meta property="og:url" content="http://yoursite.com/2017/09/18/iOS开发/手把手教你实现iOS非越狱实现微信修改步数 消息防撤回功能/index.html">
+<meta property="og:site_name" content="ElegantLiar&#39;s show">
+<meta property="og:description" content="工具准备class-dump (获取逆向APP头文件工具)下载地址: http://stevenygard.com/projects/class-dump 下载dmg文件, 将dmg文件中的class-dump复制到/usr/bin目录，并在Terminal中执行sudo chmod 777 /usr/bin/class-dump 命令赋予其执行权限 iOSOpenDev (构造越狱环境)安装具体">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-1bf5e7159e6e75f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-7ac5aec0444a714e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-92a411761072915d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-6beb30a9b231aa8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-f0cebfae8d498e46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-506975b41b725e8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-d37476fa6d051af6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-056d9de1b41b3692.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-413e05c493537a8c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-6d29fd335b9572c1.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-a78e7fb0758fab41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-2f8909e4771d4343.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-1ee4680d356cf31d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-adce179f34123cf4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-10-10T09:30:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手把手教你实现iOS非越狱实现微信修改步数 消息防撤回功能">
+<meta name="twitter:description" content="工具准备class-dump (获取逆向APP头文件工具)下载地址: http://stevenygard.com/projects/class-dump 下载dmg文件, 将dmg文件中的class-dump复制到/usr/bin目录，并在Terminal中执行sudo chmod 777 /usr/bin/class-dump 命令赋予其执行权限 iOSOpenDev (构造越狱环境)安装具体">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1770896-1bf5e7159e6e75f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/18/iOS开发/手把手教你实现iOS非越狱实现微信修改步数 消息防撤回功能/"/>
+
+
+
+
+
+  <title>手把手教你实现iOS非越狱实现微信修改步数 消息防撤回功能 | ElegantLiar's show</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ElegantLiar's show</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/18/iOS开发/手把手教你实现iOS非越狱实现微信修改步数 消息防撤回功能/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ElegantLiar">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ElegantLiar's show">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">手把手教你实现iOS非越狱实现微信修改步数 消息防撤回功能</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-18T00:00:00+08:00">
+                2017-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="工具准备"><a href="#工具准备" class="headerlink" title="工具准备"></a>工具准备</h3><h4 id="class-dump-获取逆向APP头文件工具"><a href="#class-dump-获取逆向APP头文件工具" class="headerlink" title="class-dump (获取逆向APP头文件工具)"></a>class-dump (获取逆向APP头文件工具)</h4><p>下载地址: <a href="http://stevenygard.com/projects/class-dump" target="_blank" rel="external">http://stevenygard.com/projects/class-dump</a></p>
+<p>下载dmg文件, 将dmg文件中的class-dump复制到/usr/bin目录，并在Terminal中执行<code>sudo chmod 777 /usr/bin/class-dump</code> 命令赋予其执行权限</p>
+<h4 id="iOSOpenDev-构造越狱环境"><a href="#iOSOpenDev-构造越狱环境" class="headerlink" title="iOSOpenDev (构造越狱环境)"></a>iOSOpenDev (构造越狱环境)</h4><p>安装具体操作及问题解决参考: <a href="http://www.jianshu.com/p/29580725707a" target="_blank" rel="external">http://www.jianshu.com/p/29580725707a</a></p>
+<h4 id="yololib-注入dylib库"><a href="#yololib-注入dylib库" class="headerlink" title="yololib (注入dylib库)"></a>yololib (注入dylib库)</h4><h4 id="PP助手"><a href="#PP助手" class="headerlink" title="PP助手"></a>PP助手</h4><p>用来下载越狱APP(已经破壳过的APP)</p>
+<h3 id="文件准备"><a href="#文件准备" class="headerlink" title="文件准备"></a>文件准备</h3><h4 id="开发者证书-个人证书-企业证书均可"><a href="#开发者证书-个人证书-企业证书均可" class="headerlink" title="开发者证书 (个人证书 企业证书均可)"></a>开发者证书 (个人证书 企业证书均可)</h4><p>钥匙串内有存储, 随便取一个即可</p>
+<h4 id="证书对应的-mobileprovision文件"><a href="#证书对应的-mobileprovision文件" class="headerlink" title="证书对应的.mobileprovision文件"></a>证书对应的.mobileprovision文件</h4><p>用对应证书生成.mobileprovision, 可在/Users/XXX/Library/MobileDevice/Provisioning Profiles获取</p>
+<h4 id="Entitlements-plist文件"><a href="#Entitlements-plist文件" class="headerlink" title="Entitlements.plist文件"></a>Entitlements.plist文件</h4><p>用来给注入后的APP签名, 否则无法安装</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="PP助手下载越狱版本的微信-获取IPA包-解压获取WeChat文件"><a href="#PP助手下载越狱版本的微信-获取IPA包-解压获取WeChat文件" class="headerlink" title="PP助手下载越狱版本的微信, 获取IPA包, 解压获取WeChat文件"></a>PP助手下载越狱版本的微信, 获取IPA包, 解压获取WeChat文件</h4><p>安装如图方式获取WeChat二进制文件</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-1bf5e7159e6e75f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材2.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-7ac5aec0444a714e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材3.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-92a411761072915d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材4.png"></p>
+<h4 id="dump可执行文件-获取头文件"><a href="#dump可执行文件-获取头文件" class="headerlink" title="dump可执行文件 (获取头文件)"></a>dump可执行文件 (获取头文件)</h4><p>安装class-dump后, cd文件所在的目录 终端输入 </p>
+<p><code>class-dump -H WeChat -o WeChat.h</code></p>
+<p>获取微信项目的头文件如图所示</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-6beb30a9b231aa8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材5.png"></p>
+<h4 id="新建dylib工程"><a href="#新建dylib工程" class="headerlink" title="新建dylib工程"></a>新建dylib工程</h4><p>Xcode默认不支持生成dylib，所以我们需要下载iOSOpenDev，安装完成后(Xcode7环境会提示安装iOSOpenDev失败，参考上文安装指南)，重新打开Xcode，在新建项目的选项中即可看到iOSOpenDev选项了。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-f0cebfae8d498e46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材1.png"></p>
+<ol>
+<li>项目命名为WeChatHook, 创建完成后生成WeChatHook.h/.m文件, 删除.h文件, 并修改.m文件类型为.mm文件</li>
+<li>引入CaptainHook.h文件 (CaptainHook 是使用的Runtime 机制实现，利用宏命令封装类定义、方法替换等功能)</li>
+</ol>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-506975b41b725e8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材6.png"></p>
+<ol>
+<li>hook对应功能, 并修改 <a href="(https://github.com/Abeautifulliar/ELCycleVerticalView">git地址</a>)</li>
+<li>选择对应开发者, 设备选择Generic iOS Device对项目进行build, 生成对应的dylib文件</li>
+</ol>
+<p>生成的lib文件可在git中编译生成, 工具类及方法均给出<a href="(https://github.com/Abeautifulliar/ELCycleVerticalView">git地址</a>)</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-d37476fa6d051af6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材7.png"></p>
+<h4 id="利用yololib注入WeChat-app内生成dylib文件"><a href="#利用yololib注入WeChat-app内生成dylib文件" class="headerlink" title="利用yololib注入WeChat.app内生成dylib文件"></a>利用yololib注入WeChat.app内生成dylib文件</h4><ol>
+<li>将yololib可执行文件与生成的dylib文件放在同一目录下</li>
+<li>终端输入<code>./yololib WeChat libWeChatHook.dylib</code></li>
+</ol>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-056d9de1b41b3692.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材8.png"></p>
+<h4 id="生成Entitlements-plist文件"><a href="#生成Entitlements-plist文件" class="headerlink" title="生成Entitlements.plist文件"></a>生成Entitlements.plist文件</h4><ol>
+<li>在钥匙串中获取开发者对应的id 如: iPhone Developer: XXXX (xxxx)</li>
+</ol>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-413e05c493537a8c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材9.png"></p>
+<ol>
+<li>进入上文所述embedded.mobileprovision目录</li>
+<li>终端输入<code>security cms -D -i &quot;embedded.mobileprovision&quot; &gt; t_entitlements_full.plist</code></li>
+<li>终端输入<code>/usr/libexec/PlistBuddy -x -c &#39;Print:Entitlements&#39; t_entitlements_full.plist &gt; Entitlements.plist</code></li>
+<li>此时即生成了对应的Entitlements.plist文件</li>
+</ol>
+<h4 id="对微信签名"><a href="#对微信签名" class="headerlink" title="对微信签名"></a>对微信签名</h4><ol>
+<li>移动上文生成的<strong>libWeChatHook.dylib</strong>, 注入后的<strong>WeChat</strong>二进制文件, <strong>embedded.mobileprovision</strong>到<strong>WeChat.app</strong>中</li>
+<li>利用 <code>codesign -f -s 证书名字 目标文件</code> 对如图以下文件进行签名</li>
+</ol>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-6d29fd335b9572c1.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材10.jpeg"></p>
+<h4 id="打包安装"><a href="#打包安装" class="headerlink" title="打包安装"></a>打包安装</h4><ol>
+<li>终端输入 <code>zip -qry ../extracted.ipa *</code></li>
+<li>利用PP助手 或者 <code>mobiledevice install_app extracted.ipa</code>安装至手机</li>
+</ol>
+<h3 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h3><p><img src="http://upload-images.jianshu.io/upload_images/1770896-a78e7fb0758fab41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材11.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-2f8909e4771d4343.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材12.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-1ee4680d356cf31d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材13.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-adce179f34123cf4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="素材14.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>送他一袋小浣熊~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatPay.png" alt="ElegantLiar 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/aliPay.png" alt="ElegantLiar 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/iOS逆向/" rel="tag"># iOS逆向</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/05/iOS开发/iOS APP启动优化总结 代码优化/" rel="next" title="iOS APP启动优化总结 代码优化">
+                <i class="fa fa-chevron-left"></i> iOS APP启动优化总结 代码优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/10/iOS开发/iOS 11 widget展开 折叠状态错乱的解决方法/" rel="prev" title="iOS 11 widget展开 折叠状态错乱的解决方法">
+                iOS 11 widget展开 折叠状态错乱的解决方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpeg"
+                alt="ElegantLiar" />
+            
+              <p class="site-author-name" itemprop="name">ElegantLiar</p>
+              <p class="site-description motion-element" itemprop="description">宠辱不惊，看庭前花开花落；去留无意，望天上云卷云舒。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Abeautifulliar" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:cuijinxin@etouch.cn" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#工具准备"><span class="nav-number">1.</span> <span class="nav-text">工具准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#class-dump-获取逆向APP头文件工具"><span class="nav-number">1.1.</span> <span class="nav-text">class-dump (获取逆向APP头文件工具)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOSOpenDev-构造越狱环境"><span class="nav-number">1.2.</span> <span class="nav-text">iOSOpenDev (构造越狱环境)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yololib-注入dylib库"><span class="nav-number">1.3.</span> <span class="nav-text">yololib (注入dylib库)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PP助手"><span class="nav-number">1.4.</span> <span class="nav-text">PP助手</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件准备"><span class="nav-number">2.</span> <span class="nav-text">文件准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开发者证书-个人证书-企业证书均可"><span class="nav-number">2.1.</span> <span class="nav-text">开发者证书 (个人证书 企业证书均可)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#证书对应的-mobileprovision文件"><span class="nav-number">2.2.</span> <span class="nav-text">证书对应的.mobileprovision文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Entitlements-plist文件"><span class="nav-number">2.3.</span> <span class="nav-text">Entitlements.plist文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">3.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PP助手下载越狱版本的微信-获取IPA包-解压获取WeChat文件"><span class="nav-number">3.1.</span> <span class="nav-text">PP助手下载越狱版本的微信, 获取IPA包, 解压获取WeChat文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dump可执行文件-获取头文件"><span class="nav-number">3.2.</span> <span class="nav-text">dump可执行文件 (获取头文件)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#新建dylib工程"><span class="nav-number">3.3.</span> <span class="nav-text">新建dylib工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用yololib注入WeChat-app内生成dylib文件"><span class="nav-number">3.4.</span> <span class="nav-text">利用yololib注入WeChat.app内生成dylib文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成Entitlements-plist文件"><span class="nav-number">3.5.</span> <span class="nav-text">生成Entitlements.plist文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对微信签名"><span class="nav-number">3.6.</span> <span class="nav-text">对微信签名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打包安装"><span class="nav-number">3.7.</span> <span class="nav-text">打包安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试结果"><span class="nav-number">4.</span> <span class="nav-text">测试结果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ElegantLiar</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,OC,IAP支付," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="关于iOS的应用内支付(IAP), 我曾在项目开发过程中接触过两次,本篇文章将详细介绍一下整个的开发流程, 我将会介绍IAP商品支付和验证流程 适用场景IAP大量应用于iOS系统中的游戏当中，像一些游戏中的金币，宝石的交易都是采用IAP支付。苹果官方规定，当APP涉及到虚拟货币的交易时，只能使用IAP进行支付，否则会在APP审核过程中被拒绝。而我们许多生活应用使用微信支付、支付宝支付却仍可通过审核">
+<meta name="keywords" content="iOS,OC,IAP支付">
+<meta property="og:type" content="article">
+<meta property="og:title" content="应用内支付 IAP支付流程 自动续期订阅 丢单处理 问题 流程详解">
+<meta property="og:url" content="http://yoursite.com/2017/06/09/iOS开发/应用内支付 IAP支付流程 自动续期订阅 丢单处理 问题 流程详解/index.html">
+<meta property="og:site_name" content="ElegantLiar&#39;s show">
+<meta property="og:description" content="关于iOS的应用内支付(IAP), 我曾在项目开发过程中接触过两次,本篇文章将详细介绍一下整个的开发流程, 我将会介绍IAP商品支付和验证流程 适用场景IAP大量应用于iOS系统中的游戏当中，像一些游戏中的金币，宝石的交易都是采用IAP支付。苹果官方规定，当APP涉及到虚拟货币的交易时，只能使用IAP进行支付，否则会在APP审核过程中被拒绝。而我们许多生活应用使用微信支付、支付宝支付却仍可通过审核">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-35870275f64b2bac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-d92fed24ee50219c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-23a7d5a709f10d17.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-10-10T09:21:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="应用内支付 IAP支付流程 自动续期订阅 丢单处理 问题 流程详解">
+<meta name="twitter:description" content="关于iOS的应用内支付(IAP), 我曾在项目开发过程中接触过两次,本篇文章将详细介绍一下整个的开发流程, 我将会介绍IAP商品支付和验证流程 适用场景IAP大量应用于iOS系统中的游戏当中，像一些游戏中的金币，宝石的交易都是采用IAP支付。苹果官方规定，当APP涉及到虚拟货币的交易时，只能使用IAP进行支付，否则会在APP审核过程中被拒绝。而我们许多生活应用使用微信支付、支付宝支付却仍可通过审核">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1770896-35870275f64b2bac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/09/iOS开发/应用内支付 IAP支付流程 自动续期订阅 丢单处理 问题 流程详解/"/>
+
+
+
+
+
+  <title>应用内支付 IAP支付流程 自动续期订阅 丢单处理 问题 流程详解 | ElegantLiar's show</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ElegantLiar's show</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/09/iOS开发/应用内支付 IAP支付流程 自动续期订阅 丢单处理 问题 流程详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ElegantLiar">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ElegantLiar's show">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">应用内支付 IAP支付流程 自动续期订阅 丢单处理 问题 流程详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-09T00:00:00+08:00">
+                2017-06-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>关于iOS的应用内支付(IAP), 我曾在项目开发过程中接触过两次,本篇文章将详细介绍一下整个的开发流程, 我将会介绍IAP商品支付和验证流程</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p>IAP大量应用于iOS系统中的游戏当中，像一些游戏中的金币，宝石的交易都是采用IAP支付。苹果官方规定，当APP涉及到虚拟货币的交易时，只能使用IAP进行支付，否则会在APP审核过程中被拒绝。而我们许多生活应用使用微信支付、支付宝支付却仍可通过审核，是因为都用于现实物品的交易。此外苹果会收取虚拟货币盈利的百分之30。</p>
+<h2 id="类型说明"><a href="#类型说明" class="headerlink" title="类型说明"></a>类型说明</h2><ul>
+<li>消耗型商品</li>
+<li>非消耗型商品</li>
+<li>非续期订阅</li>
+<li>自动续期订阅</li>
+</ul>
+<h3 id="消耗型商品"><a href="#消耗型商品" class="headerlink" title="消耗型商品"></a>消耗型商品</h3><p>顾名思义, 可以消耗使用的商品, 比如游戏中的金币, 钻石等, 可以用来购买应用内虚拟物品的货币</p>
+<h3 id="非消耗型商品"><a href="#非消耗型商品" class="headerlink" title="非消耗型商品"></a>非消耗型商品</h3><p>无法被消耗的商品，比如一些教育型APP中的课程, 再比如一些赛车游戏中的赛道, 这类商品需要在审核添加恢复购买按钮, 用于用户购买过后再误删除或其他原因卸载APP后的恢复流程, 否则提交审核会被拒绝</p>
+<h3 id="非续期订阅"><a href="#非续期订阅" class="headerlink" title="非续期订阅"></a>非续期订阅</h3><p>此类商品与消耗型商品类似, 比如一个月的会员, 一个季度的会员等, 与消耗型商品的差异在于, 这类商品在验证凭证时需要传递共享秘钥</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-35870275f64b2bac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="共享秘钥.png"></p>
+<h3 id="自动续期订阅"><a href="#自动续期订阅" class="headerlink" title="自动续期订阅"></a>自动续期订阅</h3><p>此类商品网上介绍比较少, 这类商品和其他商品的流程也有些许不同, 应用比如视频APP中的连续包月会员, 此类商品到期会自动扣费, 服务器的验证逻辑也会有所不同</p>
+<p>以上为商品类型的介绍说明, 我会在下文中就这支付流程做详细介绍</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>iTunes Connetct后台创建商品, 建立沙盒测试账号</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-d92fed24ee50219c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="项目类型.png"></p>
+<p>整个IAP测试阶段, 只能用沙盒测试账号测试IAP支付, 且凭证验证只能发送至测试验证环境</p>
+<p>由于本部分较为简单, 本文不做具体介绍, 直接在iTunes Connetct后台创建按照说明创建即可</p>
+<p>需要注意的是如果应用是第一次进行IAP开发,  首先要完善苹果商店内的个人信息 （银行卡信息、 税务相关信息）才能创建相关商品,  而且需要在下一个发布版本中审核商品, 如果曾经审核过IAP开发, 可直接在后台进行新增商品审核</p>
+<h2 id="支付验证流程"><a href="#支付验证流程" class="headerlink" title="支付验证流程"></a>支付验证流程</h2><p>首先简单说明一下整个流程, 此处以我们APP开发为例, 说明客户端进行支付, 服务器端进行验证的逻辑, 保证整个IAP支付的安全性</p>
+<h4 id="整个流程大体为"><a href="#整个流程大体为" class="headerlink" title="整个流程大体为"></a>整个流程大体为</h4><ol>
+<li>客户端请求商品订单 </li>
+<li>获取IAP商品id </li>
+<li>IAP商品查询</li>
+<li>用户支付 </li>
+<li>客户端发送订单号+支付凭证到服务器</li>
+<li>服务器验证凭证是否合法</li>
+<li>返回结果到客户端</li>
+<li>客户端业务逻辑处理</li>
+</ol>
+<p>下面我会针对非续期订阅以及自动续期订阅做详细说明, 消耗型商品和非续期订阅类似且相对简单</p>
+<h3 id="非续期订阅支付流程-以一个月会员为例"><a href="#非续期订阅支付流程-以一个月会员为例" class="headerlink" title="非续期订阅支付流程(以一个月会员为例)"></a>非续期订阅支付流程(以一个月会员为例)</h3><p>首先向服务器下单, 携带后台创建的商品id, 向自己服务器下单, 在成功回调中获取单号并存储</p>
+<pre><code>/**
+ 下vip订单
+
+@param params 参数  @&quot;item_id&quot; : @(itemID),
+ @param success 成功回调
+ @param fail 失败回调
+ */
+- (void)makeVipOrderWithParams:(NSDictionary *)params
+                   success:(RequestOrderSuccess)success
+                      fail:(RequestOrderfailBlock)fail;
+</code></pre><p>下单成功后, 对商品进行支付, 这里支付过程网络上demo较多, 不做说明, 具体参考github上的工具类 <a href="https://github.com/saturngod/IAPHelper" target="_blank" rel="external">IAPHelper</a></p>
+<pre><code>/**
+ 购买对应商品identifier后的回调
+
+ @param identifier 商品identifier
+ @param completion 回调
+ */
+- (void)payProductsWithIdentifier:(NSString *)identifier
+                   completion:(IAPbuyProductCompleteResponseBlock)completion;
+</code></pre><p>当用户支付成功后, 在回调中获取到凭证, 以凭证 订单号 用户uid等为参数请求服务器, 服务器向苹果服务器验证凭证是否支付</p>
+<pre><code>/**
+ 查询vipIAP支付结果
+
+ @param orderID 订单ID
+ @param receipt 凭证
+ @param uid 用户uid
+ @param success 成功回调
+ @param fail 失败回调
+ */
+- (void)requestIAPResultWithOrderID:(long long)orderID
+                        receipt:(NSString *)receipt
+                            uid:(NSString *)uid
+                        success:(RequestQuerySuccess)success
+                           fail:(RequestQueryFail)fail;
+</code></pre><p> 此处, 服务器验证凭证时, 因为为非续期订阅支付, 需携带上文中的共享秘钥和凭证进行验证, 苹果验证结果会返回订单的详细信息, 服务器根据返回信息来进行业务处理</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1770896-23a7d5a709f10d17.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-06-09 下午3.59.05.png"></p>
+<p>客户端在收到验证结果后, 刷新界面即完成整个流程</p>
+<h3 id="自动续期订阅支付流程-连续包月"><a href="#自动续期订阅支付流程-连续包月" class="headerlink" title="自动续期订阅支付流程(连续包月)"></a>自动续期订阅支付流程(连续包月)</h3><p>支付流程和上方一致, 不同的特殊处理是, 服务器在验证成功后会储存用户的这个凭证,当用户此阶段会员到期时, 再次查询凭证, 当查询凭证有效期发生了变化, 根据具体请求结果, 为用户延长一个月的会员, 否则, 到期取消会员</p>
+<h2 id="丢单处理"><a href="#丢单处理" class="headerlink" title="丢单处理"></a>丢单处理</h2><p>由于IAP服务器无法保证质量, 或者自己服务器验证凭证出现问题时, 可能会出现丢单(用户付费成功, 但是凭证无法成功向自己服务器验证)的情况, 对于这种情况, 我们可以这样处理</p>
+<p>在用户下单成功后, 储存订单&amp;uid&amp;凭证</p>
+<pre><code>/**
+ 存储 订单&amp;uid&amp;凭证
+
+ @param orderID 订单
+ @param uid 用户uid
+ @param receipt 凭证
+ @param saveKey 储存key
+ */
+- (void)saveOrderReceiptWithOrderID:(long long)orderID
+                            uid:(NSString *)uid
+                        receipt:(NSString *)receipt
+                        saveKey:(NSString *)saveKey;
+</code></pre><p>在用户向服务器验证成功后或者非网络原因造成的失败后, 删除此条记录, </p>
+<pre><code>/**
+ 删除 订单&amp;凭证
+
+ @param orderID 订单
+ @param receipt 凭证
+ @param saveKey 储存key
+ */
+- (void)removeOrderReceiptWithOrderID:(long long)orderID
+                          receipt:(NSString *)receipt
+                          saveKey:(NSString *)saveKey;
+</code></pre><p> 这样如果由于网络问题或者服务器出现问题造成丢单, 我们可以在下一次用户启动APP再次去进行验证这笔订单, 重复上面流程</p>
+<pre><code>/**
+ 核对支付成功但是验证失败的订单
+ */
+- (void)checkLocalLostVipOrder;
+</code></pre><h2 id="伪造订单处理"><a href="#伪造订单处理" class="headerlink" title="伪造订单处理"></a>伪造订单处理</h2><p>IAP支付难免会出现一些伪造凭证的验证, 对此, 服务器端对于凭证的验证一定要十分谨慎, 我们APP曾收到过伪造凭证的验证, 可以参考一下验证:</p>
+<ol>
+<li>核对凭证验证后itemID</li>
+<li>核对凭证是否为正式环境的凭证</li>
+<li>核对凭证的有效时间</li>
+<li>对于越狱用户的处理, 之前做消耗品IAP支付的时候, 对于越狱用户由于有一些IAP插件的存在, 我们选择对于越狱用户直接进行微信支付, 随着后来判断逻辑的增加, 对于越狱用户也启用了IAP支付</li>
+</ol>
+<h2 id="审核需知"><a href="#审核需知" class="headerlink" title="审核需知"></a>审核需知</h2><p>IAP审核时, 需要提供沙盒测试账号和一个APP的测试账号, 在审核过程时, 我们整个流程都已经切换为正式环境, 但审核人员仍然使用测试凭证去进行验证, 我们服务器需要在审核阶段, 对于此uid的凭证仍然去测试验证接口去验证, 否则会被拒绝通过</p>
+<p>具体审核问题详见我写的这篇文章<a href="http://www.jianshu.com/p/982bfa82d41b" target="_blank" rel="external">应用内支付自动续费 连续包月 审核注意问题</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>送他一袋小浣熊~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatPay.png" alt="ElegantLiar 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/aliPay.png" alt="ElegantLiar 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/OC/" rel="tag"># OC</a>
+          
+            <a href="/tags/IAP支付/" rel="tag"># IAP支付</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/19/Mac/GitHub无法访问解决办法/" rel="next" title="GitHub无法访问解决办法">
+                <i class="fa fa-chevron-left"></i> GitHub无法访问解决办法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/22/iOS开发/iOS 画贝塞尔曲线 连续曲线 平滑曲线 曲线图表/" rel="prev" title="iOS 画贝塞尔曲线 连续曲线 平滑曲线 曲线图表">
+                iOS 画贝塞尔曲线 连续曲线 平滑曲线 曲线图表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpeg"
+                alt="ElegantLiar" />
+            
+              <p class="site-author-name" itemprop="name">ElegantLiar</p>
+              <p class="site-description motion-element" itemprop="description">宠辱不惊，看庭前花开花落；去留无意，望天上云卷云舒。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Abeautifulliar" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:cuijinxin@etouch.cn" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#适用场景"><span class="nav-number">1.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型说明"><span class="nav-number">2.</span> <span class="nav-text">类型说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#消耗型商品"><span class="nav-number">2.1.</span> <span class="nav-text">消耗型商品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非消耗型商品"><span class="nav-number">2.2.</span> <span class="nav-text">非消耗型商品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非续期订阅"><span class="nav-number">2.3.</span> <span class="nav-text">非续期订阅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动续期订阅"><span class="nav-number">2.4.</span> <span class="nav-text">自动续期订阅</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">3.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支付验证流程"><span class="nav-number">4.</span> <span class="nav-text">支付验证流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#整个流程大体为"><span class="nav-number">4.0.1.</span> <span class="nav-text">整个流程大体为</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非续期订阅支付流程-以一个月会员为例"><span class="nav-number">4.1.</span> <span class="nav-text">非续期订阅支付流程(以一个月会员为例)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动续期订阅支付流程-连续包月"><span class="nav-number">4.2.</span> <span class="nav-text">自动续期订阅支付流程(连续包月)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#丢单处理"><span class="nav-number">5.</span> <span class="nav-text">丢单处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伪造订单处理"><span class="nav-number">6.</span> <span class="nav-text">伪造订单处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#审核需知"><span class="nav-number">7.</span> <span class="nav-text">审核需知</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ElegantLiar</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

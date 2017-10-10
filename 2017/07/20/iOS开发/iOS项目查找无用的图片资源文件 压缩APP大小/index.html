@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="">
+<html class="theme-next gemini use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="iOS Developer, 程序员" />
+  <meta name="keywords" content="iOS,项目优化," />
 
 
 
@@ -79,16 +79,21 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="应用GitHub地址1. 下载项目并运行 2. 将项目所在文件夹拖入 Project Path (粉色框) 内 3. 点击右下角Search 红色边框内的搜索结果即为没有用到的图片资源文件注意 搜索结果仅为项目中未直接用到的图片资源, 如果图片名为拼写得到, 应对图片进行筛选">
+<meta name="keywords" content="iOS,项目优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/10/09/hello-world/index.html">
+<meta property="og:title" content="iOS项目查找无用的图片资源文件 压缩APP大小">
+<meta property="og:url" content="http://yoursite.com/2017/07/20/iOS开发/iOS项目查找无用的图片资源文件 压缩APP大小/index.html">
 <meta property="og:site_name" content="ElegantLiar&#39;s show">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-10-09T06:57:20.000Z">
+<meta property="og:description" content="应用GitHub地址1. 下载项目并运行 2. 将项目所在文件夹拖入 Project Path (粉色框) 内 3. 点击右下角Search 红色边框内的搜索结果即为没有用到的图片资源文件注意 搜索结果仅为项目中未直接用到的图片资源, 如果图片名为拼写得到, 应对图片进行筛选">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-e89d541eae371c0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1770896-18736c291fb92ae0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-10-10T09:24:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="iOS项目查找无用的图片资源文件 压缩APP大小">
+<meta name="twitter:description" content="应用GitHub地址1. 下载项目并运行 2. 将项目所在文件夹拖入 Project Path (粉色框) 内 3. 点击右下角Search 红色边框内的搜索结果即为没有用到的图片资源文件注意 搜索结果仅为项目中未直接用到的图片资源, 如果图片名为拼写得到, 应对图片进行筛选">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1770896-e89d541eae371c0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -104,7 +109,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -118,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/09/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/20/iOS开发/iOS项目查找无用的图片资源文件 压缩APP大小/"/>
 
 
 
 
 
-  <title>Hello World | ElegantLiar's show</title>
+  <title>iOS项目查找无用的图片资源文件 压缩APP大小 | ElegantLiar's show</title>
   
 
 
@@ -136,7 +141,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -184,17 +189,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            Über
+            首页
           </a>
         </li>
       
@@ -204,7 +199,17 @@
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Tags
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -214,7 +219,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            归档
           </a>
         </li>
       
@@ -251,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/09/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/20/iOS开发/iOS项目查找无用的图片资源文件 压缩APP大小/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ElegantLiar">
@@ -268,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">iOS项目查找无用的图片资源文件 压缩APP大小</h1>
         
 
         <div class="post-meta">
@@ -278,10 +283,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-09T14:57:20+08:00">
-                2017-10-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-20T00:00:00+08:00">
+                2017-07-20
               </time>
             
 
@@ -290,6 +295,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -318,16 +345,9 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
+        <h2 id="应用GitHub地址"><a href="#应用GitHub地址" class="headerlink" title="应用GitHub地址"></a><a href="https://github.com/tinymind/LSUnusedResources/" target="_blank" rel="external">应用GitHub地址</a></h2><h2 id="1-下载项目并运行"><a href="#1-下载项目并运行" class="headerlink" title="1. 下载项目并运行"></a>1. 下载项目并运行</h2><p><img src="http://upload-images.jianshu.io/upload_images/1770896-e89d541eae371c0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="应用主界面.png"></p>
+<h2 id="2-将项目所在文件夹拖入-Project-Path-粉色框-内"><a href="#2-将项目所在文件夹拖入-Project-Path-粉色框-内" class="headerlink" title="2. 将项目所在文件夹拖入 Project Path (粉色框) 内"></a>2. 将项目所在文件夹拖入 Project Path (粉色框) 内</h2><p><img src="http://upload-images.jianshu.io/upload_images/1770896-18736c291fb92ae0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="应用界面.png"></p>
+<h2 id="3-点击右下角Search-红色边框内的搜索结果即为没有用到的图片资源文件"><a href="#3-点击右下角Search-红色边框内的搜索结果即为没有用到的图片资源文件" class="headerlink" title="3. 点击右下角Search 红色边框内的搜索结果即为没有用到的图片资源文件"></a>3. 点击右下角Search 红色边框内的搜索结果即为没有用到的图片资源文件</h2><h1 id="注意-搜索结果仅为项目中未直接用到的图片资源-如果图片名为拼写得到-应对图片进行筛选"><a href="#注意-搜索结果仅为项目中未直接用到的图片资源-如果图片名为拼写得到-应对图片进行筛选" class="headerlink" title="注意 搜索结果仅为项目中未直接用到的图片资源, 如果图片名为拼写得到, 应对图片进行筛选"></a>注意 搜索结果仅为项目中未直接用到的图片资源, 如果图片名为拼写得到, 应对图片进行筛选</h1>
       
     </div>
     
@@ -339,23 +359,23 @@
     
       <div>
         <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div></div>
+  <div>送他一袋小浣熊~</div>
   <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>Donate</span>
+    <span>打赏</span>
   </button>
   <div id="QR" style="display: none;">
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatPay.jpg" alt="ElegantLiar WeChat Pay"/>
-        <p>WeChat Pay</p>
+        <img id="wechat_qr" src="/images/wechatPay.png" alt="ElegantLiar 微信支付"/>
+        <p>微信支付</p>
       </div>
     
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/aliPay.jpg" alt="ElegantLiar Alipay"/>
-        <p>Alipay</p>
+        <img id="alipay_qr" src="/images/aliPay.png" alt="ElegantLiar 支付宝"/>
+        <p>支付宝</p>
       </div>
     
 
@@ -371,11 +391,39 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/项目优化/" rel="tag"># 项目优化</a>
+          
+        </div>
+      
 
       
       
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/22/iOS开发/iOS 画贝塞尔曲线 连续曲线 平滑曲线 曲线图表/" rel="next" title="iOS 画贝塞尔曲线 连续曲线 平滑曲线 曲线图表">
+                <i class="fa fa-chevron-left"></i> iOS 画贝塞尔曲线 连续曲线 平滑曲线 曲线图表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/03/iOS开发/应用内支付自动续费 连续包月 审核注意问题/" rel="prev" title="应用内支付自动续费 连续包月 审核注意问题">
+                应用内支付自动续费 连续包月 审核注意问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -426,10 +474,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            站点概览
           </li>
         </ul>
       
@@ -443,7 +491,7 @@
                 alt="ElegantLiar" />
             
               <p class="site-author-name" itemprop="name">ElegantLiar</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">宠辱不惊，看庭前花开花落；去留无意，望天上云卷云舒。</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -453,14 +501,32 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -506,7 +572,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用GitHub地址"><span class="nav-number">1.</span> <span class="nav-text">应用GitHub地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-下载项目并运行"><span class="nav-number">2.</span> <span class="nav-text">1. 下载项目并运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-将项目所在文件夹拖入-Project-Path-粉色框-内"><span class="nav-number">3.</span> <span class="nav-text">2. 将项目所在文件夹拖入 Project Path (粉色框) 内</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-点击右下角Search-红色边框内的搜索结果即为没有用到的图片资源文件"><span class="nav-number">4.</span> <span class="nav-text">3. 点击右下角Search 红色边框内的搜索结果即为没有用到的图片资源文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意-搜索结果仅为项目中未直接用到的图片资源-如果图片名为拼写得到-应对图片进行筛选"><span class="nav-number"></span> <span class="nav-text">注意 搜索结果仅为项目中未直接用到的图片资源, 如果图片名为拼写得到, 应对图片进行筛选</span></a></div>
             
 
           </div>
@@ -536,7 +602,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -544,7 +610,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
 
 
 
